@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
+const appointmentService = require('./services/AppointmentService');
 
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
@@ -18,6 +19,23 @@ app.get("/", (req, res) => {
 })
 
 app.get("/cadastro", (req, res) => res.render("create"))
+
+app.post('/create', async (req, res) => {
+    const status = await appointmentService.Create(
+        req.body.name,
+        req.body.email,
+        req.body.description,
+        req.body.cpf,
+        req.body.date,
+        req.body.time
+    );
+
+    if(status){
+        res.redirect("/");
+    }else{
+        res.json({ err: "Ocorreu uma falha" }).status(500);
+    }
+});
 
 app.listen(8888, () => {
     console.log("Server is running");

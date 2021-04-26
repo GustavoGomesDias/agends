@@ -6,9 +6,8 @@ const Appointment =  new mongoose.Schema({
     description: String,
     cpf: String,
     date: Date,
-
-    // Salvaremos a hora como string
-    time: String
+    time: String, // Hora como string
+    finished: Boolean
 });
 
 module.exports = Appointment;
