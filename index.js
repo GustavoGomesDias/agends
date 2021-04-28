@@ -21,6 +21,7 @@ app.get("/", (req, res) => {
 app.get("/cadastro", (req, res) => res.render("create"))
 
 app.post('/create', async (req, res) => {
+    
     const status = await appointmentService.Create(
         req.body.name,
         req.body.email,
@@ -38,9 +39,9 @@ app.post('/create', async (req, res) => {
 });
 
 app.get("/getcalendar", async (req, res) => {
-    const consultas = await appointmentService.GetAll(false);
+    const appointments = await appointmentService.GetAll(false);
     
-    res.json(consultas);
+    res.json(appointments);
 });
 
 app.listen(8888, () => {
