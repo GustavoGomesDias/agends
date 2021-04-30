@@ -72,7 +72,7 @@ class AppointmentService {
 
         appos.forEach(appo => {
             // Pega a data no formato de ms
-            const date = appo.start.getime();
+            const date = appo.start.getTime();
             const hour = 1000 * 60 * 60;
             /* Date.now() => Data atual */
             const gap = date - Date.now();
