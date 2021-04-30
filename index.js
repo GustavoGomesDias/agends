@@ -40,12 +40,13 @@ app.post('/create', async (req, res) => {
 
 app.get("/getcalendar", async (req, res) => {
     const appointments = await appointmentService.GetAll(false);
-    
     res.json(appointments);
 });
 
 app.get('/event/:id', async (req, res) => {
-    res.json({ id: req.params.id });
+    const appointment = await appointmentService.GetById(req.params.id);
+    res.render("event", { appo: appointment });
+    
 });
 
 app.listen(8888, () => {
