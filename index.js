@@ -58,9 +58,14 @@ app.post('/finish', async (req, res) => {
 
 app.get('/list', async (req, res) => {
     const appos = await appointmentService.GetAll(true);
-    
+
     res.render('list', {appos});
-})
+});
+
+app.get('/searchresult', async (req, res) => {
+    const appos = await appointmentService.Search(req.query.search);
+    res.render('list', { appos });
+});
 
 app.listen(8888, () => {
     console.log("Server is running!");
