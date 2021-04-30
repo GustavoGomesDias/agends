@@ -67,6 +67,11 @@ app.get('/searchresult', async (req, res) => {
     res.render('list', { appos });
 });
 
+setInterval(async () => {
+    // Envair email
+    await appointmentService.SendNotification();
+}, 2 * 60000);
+
 app.listen(8888, () => {
     console.log("Server is running!");
 });

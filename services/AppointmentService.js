@@ -9,8 +9,7 @@ class AppointmentService {
     async Create(name, email, description, cpf, date, time){
 
 
-        const newAppo = new Appo({name, email, description, cpf, date, time, finished: false
-        });
+        const newAppo = new Appo({ name, email, description, cpf, date, time, finished: false, notified: false });
 
         try{
             await newAppo.save();
@@ -66,7 +65,23 @@ class AppointmentService {
             console.log(err);
             return [];
         }
-        console.log(appos);
+    }
+
+    async SendNotification(){
+        const appos =  await this.GetAll(false);
+
+        appos.forEach(appo => {
+            // Pega a data no formato de ms
+            const date = appo.start.getime();
+            const hour = 1000 * 60 * 60;
+            /* Date.now() => Data atual */
+            const gap = date - Date.now();
+
+            if(gap <= hour){
+                console.log(appo.title);
+                console.log("Mande a notificação")
+            }
+        })
     }
 }
 
