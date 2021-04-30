@@ -56,6 +56,12 @@ app.post('/finish', async (req, res) => {
     res.redirect('/');
 });
 
+app.get('/list', async (req, res) => {
+    const appos = await appointmentService.GetAll(true);
+    
+    res.render('list', {appos});
+})
+
 app.listen(8888, () => {
     console.log("Server is running!");
 });
