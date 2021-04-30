@@ -13,6 +13,7 @@ mongoose.connect("mongodb://localhost:27017/agendamento", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
+mongoose.set('useFindAndModify', false);
 
 app.get("/", (req, res) => {
     res.render("index");
@@ -47,6 +48,12 @@ app.get('/event/:id', async (req, res) => {
     const appointment = await appointmentService.GetById(req.params.id);
     res.render("event", { appo: appointment });
     
+});
+
+app.post('/finish', async (req, res) => {
+    const id = req.body.id;
+    const result = await appointmentService.Finish(id);
+    res.redirect('/');
 });
 
 app.listen(8888, () => {
